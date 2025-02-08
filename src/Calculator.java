@@ -2,15 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 public class Calculator extends JFrame implements MyClickable {
-    JTextField textfield;
-    JButton[] numberButtons = new JButton[10];
-    JButton[] functionButtons = new JButton[9];
-    JButton addButton, subButton, mulButton, divButton;
-    JButton decButton, equButton, delButton, clrButton, negButton;
-    JPanel panel;
-
-    Font myFont = new Font("Arial", Font.BOLD, 30);
-
+    private JTextField textfield;
+    private final JButton[] numberButtons = new JButton[10];
+    private final JButton[] functionButtons = new JButton[9];
+    private JButton addButton, subButton, mulButton, divButton;
+    private JButton decButton, equButton, delButton, clrButton, negButton;
+    private final JPanel buttonsPanel=new JPanel();
+    private final JPanel panel = new JPanel();
+    private final Color myPrimaryColor= Color.decode("#9affe2");
+    private final Color mySecondaryColor= Color.decode("#006e5f");
+    private final Font myFont = new Font("Arial", Font.BOLD, 30);
     double num1 = 0, num2 = 0, result = 0;
     char operator;
 
@@ -18,11 +19,14 @@ public class Calculator extends JFrame implements MyClickable {
         display();
     }
 
-    public void display(){
+    private void display(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(420, 550);
         setLayout(null);
-
+        setResizable(false);
+        panel.setBounds(0, 0, 420, 550);
+        panel.setBackground(mySecondaryColor);
+        panel.setLayout(null);
         textfield = new JTextField();
         textfield.setBounds(50, 25, 300, 50);
         textfield.setFont(myFont);
@@ -52,6 +56,7 @@ public class Calculator extends JFrame implements MyClickable {
             functionButtons[i].addActionListener(this);
             functionButtons[i].setFont(myFont);
             functionButtons[i].setFocusable(false);
+            functionButtons[i].setBackground(myPrimaryColor);
         }
 
         for (int i = 0; i < 10; i++) {
@@ -59,44 +64,44 @@ public class Calculator extends JFrame implements MyClickable {
             numberButtons[i].addActionListener(this);
             numberButtons[i].setFont(myFont);
             numberButtons[i].setFocusable(false);
+            numberButtons[i].setBackground(myPrimaryColor);
         }
-
         negButton.setBounds(50, 430, 100, 50);
+        negButton.setBackground(myPrimaryColor);
         delButton.setBounds(150, 430, 100, 50);
+        delButton.setBackground(myPrimaryColor);
         clrButton.setBounds(250, 430, 100, 50);
-
-        panel = new JPanel();
-        panel.setBounds(50, 100, 300, 300);
-        panel.setLayout(new GridLayout(4, 4, 10, 10));
-
-        panel.add(numberButtons[1]);
-        panel.add(numberButtons[2]);
-        panel.add(numberButtons[3]);
-        panel.add(addButton);
-        panel.add(numberButtons[4]);
-        panel.add(numberButtons[5]);
-        panel.add(numberButtons[6]);
-        panel.add(subButton);
-        panel.add(numberButtons[7]);
-        panel.add(numberButtons[8]);
-        panel.add(numberButtons[9]);
-        panel.add(mulButton);
-        panel.add(decButton);
-        panel.add(numberButtons[0]);
-        panel.add(equButton);
-        panel.add(divButton);
-
+        clrButton.setBackground(myPrimaryColor);
+        buttonsPanel.setBounds(50, 100, 300, 300);
+        buttonsPanel.setLayout(new GridLayout(4, 4, 10, 10));
+        buttonsPanel.setBackground(mySecondaryColor);
+        buttonsPanel.add(numberButtons[1]);
+        buttonsPanel.add(numberButtons[2]);
+        buttonsPanel.add(numberButtons[3]);
+        buttonsPanel.add(addButton);
+        buttonsPanel.add(numberButtons[4]);
+        buttonsPanel.add(numberButtons[5]);
+        buttonsPanel.add(numberButtons[6]);
+        buttonsPanel.add(subButton);
+        buttonsPanel.add(numberButtons[7]);
+        buttonsPanel.add(numberButtons[8]);
+        buttonsPanel.add(numberButtons[9]);
+        buttonsPanel.add(mulButton);
+        buttonsPanel.add(decButton);
+        buttonsPanel.add(numberButtons[0]);
+        buttonsPanel.add(equButton);
+        buttonsPanel.add(divButton);
+        panel.add(buttonsPanel);
+        panel.add(negButton);
+        panel.add(delButton);
+        panel.add(clrButton);
+        panel.add(textfield);
         add(panel);
-        add(negButton);
-        add(delButton);
-        add(clrButton);
-        add(textfield);
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         for (int i = 0; i < 10; i++) {
             if (e.getSource() == numberButtons[i]) {
                 textfield.setText(textfield.getText().concat(String.valueOf(i)));
@@ -106,60 +111,111 @@ public class Calculator extends JFrame implements MyClickable {
             textfield.setText(textfield.getText().concat("."));
         }
         if (e.getSource() == addButton) {
-            num1 = Double.parseDouble(textfield.getText());
-            operator = '+';
-            textfield.setText("");
+            if(!textfield.getText().isEmpty()) {
+                if(num1 != 0){
+                    num2 = Double.parseDouble(textfield.getText());
+                    result = num1 + num2;
+                    num1 = result;
+                    num2 =0;
+                    result = 0;
+                    textfield.setText("");
+                }else {
+                    num1 = Double.parseDouble(textfield.getText());
+                    operator = '+';
+                    textfield.setText("");
+                }
+            }
         }
         if (e.getSource() == subButton) {
-            num1 = Double.parseDouble(textfield.getText());
-            operator = '-';
-            textfield.setText("");
+            if(!textfield.getText().isEmpty()) {
+                if(num1 != 0){
+                    num2 = Double.parseDouble(textfield.getText());
+                    result = num1 - num2;
+                    num1 = result;
+                    num2 =0;
+                    result = 0;
+                    textfield.setText("");
+                }else {
+                    num1 = Double.parseDouble(textfield.getText());
+                    operator = '-';
+                    textfield.setText("");
+                }
+            }
+
         }
         if (e.getSource() == mulButton) {
-            num1 = Double.parseDouble(textfield.getText());
-            operator = '*';
-            textfield.setText("");
+            if(!textfield.getText().isEmpty()) {
+                if(num1 != 0){
+                    num2 = Double.parseDouble(textfield.getText());
+                    result = num1 * num2;
+                    num1 = result;
+                    num2 =0;
+                    result = 0;
+                    textfield.setText("");
+                }else {
+                    num1 = Double.parseDouble(textfield.getText());
+                    operator = '*';
+                    textfield.setText("");
+                }
+            }
         }
         if (e.getSource() == divButton) {
-            num1 = Double.parseDouble(textfield.getText());
-            operator = '/';
-            textfield.setText("");
+            if(!textfield.getText().isEmpty()) {
+                if(num1 != 0){
+                    num2 = Double.parseDouble(textfield.getText());
+                    result = num1 / num2;
+                    num1 = result;
+                    num2 =0;
+                    result = 0 ;
+                    textfield.setText("");
+                }else {
+                    num1 = Double.parseDouble(textfield.getText());
+                    operator = '/';
+                    textfield.setText("");
+                }
+            }
         }
         if (e.getSource() == equButton) {
-            num2 = Double.parseDouble(textfield.getText());
-
-            switch (operator) {
-                case '+':
-                    result = num1 + num2;
-                    break;
-                case '-':
-                    result = num1 - num2;
-                    break;
-                case '*':
-                    result = num1 * num2;
-                    break;
-                case '/':
-                    result = num1 / num2;
-                    break;
+            if (!textfield.getText().isEmpty()) {
+                num2 = Double.parseDouble(textfield.getText());
+                switch (operator) {
+                    case '+':
+                        result = num1 + num2;
+                        break;
+                    case '-':
+                        result = num1 - num2;
+                        break;
+                    case '*':
+                        result = num1 * num2;
+                        break;
+                    case '/':
+                        result = num1 / num2;
+                        break;
+                }
+                textfield.setText(String.valueOf(result));
+                num1 = result;
             }
-            textfield.setText(String.valueOf(result));
-            num1 = result;
         }
         if (e.getSource() == clrButton) {
             textfield.setText("");
         }
         if (e.getSource() == delButton) {
-            String string = textfield.getText();
-            textfield.setText("");
-            for (int i = 0; i < string.length() - 1; i++) {
-                textfield.setText(textfield.getText() + string.charAt(i));
+            if (!textfield.getText().isEmpty()) {
+                String string = textfield.getText();
+                textfield.setText("");
+                for (int i = 0; i < string.length() - 1; i++) {
+                    textfield.setText(textfield.getText() + string.charAt(i));
+                }
             }
         }
         if (e.getSource() == negButton) {
-            double temp = Double.parseDouble(textfield.getText());
-            temp *= -1;
-            textfield.setText(String.valueOf(temp));
+            if(!textfield.getText().isEmpty()){
+                double temp = Double.parseDouble(textfield.getText());
+                temp *= -1;
+                textfield.setText(String.valueOf(temp));
+            }else{
+                textfield.setText("-");
+            }
         }
     }
 }
-
