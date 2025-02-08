@@ -193,6 +193,8 @@ public class Calculator extends JFrame implements MyClickable {
                 }
                 textfield.setText(String.valueOf(result));
                 num1 = result;
+                num2 = 0;
+                result = 0;
             }
         }
         if (e.getSource() == clrButton) {
