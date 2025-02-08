@@ -31,7 +31,6 @@ public class Calculator extends JFrame implements MyClickable {
         textfield.setBounds(50, 25, 300, 50);
         textfield.setFont(myFont);
         textfield.setEditable(false);
-
         addButton = new JButton("+");
         subButton = new JButton("-");
         mulButton = new JButton("*");
@@ -198,6 +197,9 @@ public class Calculator extends JFrame implements MyClickable {
         }
         if (e.getSource() == clrButton) {
             textfield.setText("");
+            num1=0;
+            num2=0;
+            result=0;
         }
         if (e.getSource() == delButton) {
             if (!textfield.getText().isEmpty()) {
