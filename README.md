@@ -11,12 +11,11 @@ cd Calculator
 ```
 
 ### Prerequisites
-- Android Studio (latest version recommended)
-
+- Intellij Idea Recommended (or any Java IDE)
 ### Project Setup
-1. **Open the project in Android Studio.**
-2. **Sync the project with Gradle files.**
-3. **Build and run the project on an emulator or a physical device.**
+1. **Open the project in Intellij Idea.**
+2. **Sync the project**
+3. **Build and run the project**
 
 ---
 
@@ -25,13 +24,6 @@ cd Calculator
 - User-friendly UI with a responsive design.
 
 ---
-
-## Contributing
-- Fork the repository.
-- Create your feature branch (`git checkout -b feature-branch`).
-- Commit your changes (`git commit -m 'Add new feature'`).
-- Push to the branch (`git push origin feature-branch`).
-- Open a Pull Request.
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
